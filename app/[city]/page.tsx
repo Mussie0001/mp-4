@@ -31,7 +31,7 @@ const WeatherCardsContainer = styled.div`
 
 export default function CityPage() {
     const params = useParams();
-    const {data, error} = useSWR('/api/getWeatherData?city=${params.city}', (url) => fetch(url).then((res) => res.json()));
+    const {data, error} = useSWR(`/api/getWeatherData?city=${params.city}`, (url) => fetch(url).then((res) => res.json()));
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
