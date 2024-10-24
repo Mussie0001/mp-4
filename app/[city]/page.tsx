@@ -9,17 +9,26 @@ const WeatherContentWrapper = styled.div`
     width: 80vw;
     margin: auto;
     background-color: aquamarine;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `
 
 const CityName = styled.h1`
     color: blueviolet;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
 `
 
 const WeatherCardsContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     border: gold 5px solid;
+    gap: 20px;
+    justify-content: center;
 `
+
 export default function CityPage() {
     const params = useParams();
     const {data, error} = useSWR('/api/getWeatherData?city=${params.city}', (url) => fetch(url).then((res) => res.json()));
