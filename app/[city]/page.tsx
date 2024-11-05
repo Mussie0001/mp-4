@@ -31,7 +31,8 @@ const WeatherCardsContainer = styled.div`
 
 export default function CityPage() {
     const params = useParams();
-    const {data, error} = useSWR(`/api/getWeatherData?city=${params.city}`, (url) => fetch(url).then((res) => res.json()));
+    const city = params.city as string | undefined;
+    const {data, error} = useSWR(city ? `/api/getWeatherData?city=${city}` : null, (url) => fetch(url).then((res) => res.json()));
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -40,7 +41,7 @@ export default function CityPage() {
 
     return (
         <WeatherContentWrapper>
-            <CityName>{params.city}</CityName>
+            <CityName>{decodeURIComponent(city || '')}</CityName>
             <WeatherCardsContainer>
                 {
                     days.map((weather: Weather, i: number) => (
